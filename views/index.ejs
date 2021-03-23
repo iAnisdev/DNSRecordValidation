@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <meta name="description" content="DNS Record Validator">
-    <meta name="keywords" content="HTML, CSS, JavaScript , bootstrap , node, express, dns">
-    <meta name="author" content="Anis">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/stylesheets/index.css' />
-  </head>
-  <body>
-    <div class="container">
-
-      <div class="cover">
-        <h1>Enter A DNS Record to Validate</h1>
-        <form  class="flex-form" method="POST" action="/validate" >
-          <label for="from">
-            <i class="ion-location"></i>
-          </label>
-          <input type="text" name="record" placeholder="www.example.com">
-          <input type="submit" value="Search">
-        </form>
+   <head>
+      <title>
+         <%= title %>
+      </title>
+      <meta name="description" content="DNS Record Validator">
+      <meta name="keywords" content="HTML, CSS, JavaScript , bootstrap , node, express, dns">
+      <meta name="author" content="Anis">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+      <link rel='stylesheet' href='/stylesheets/index.css' />
+   </head>
+   <body>
+      <div class="container">
+         <div class="cover">
+            <h2>Enter A DNS Record to Validate</h2>
+            <form class="flex-form" method="POST" action="/validate">
+               <!-- hostname value input -->
+               <input type="text" name="hostname" placeholder="www.example.com">
+               <!-- Type of DNS select-->
+               <select name="type">
+                  <option value="A">A</option>
+                  <option value="AAAA">AAAA</option>
+                  <option value="ANY">ANY</option>
+                  <option value="CNAME">CNAME</option>
+                  <option value="NAPTR">NAPTR</option>
+                  <option value="PTR">PTR</option>
+                  <option value="NS">NS</option>
+                  <option value="MX">MX</option>
+                  <option value="SOA">SOA</option>
+                  <option value="SRV">SRV</option>
+                  <option value="TXT">TXT</option>
+               </select>
+               <input type="submit" value="Search"> 
+            </form>
+            <div class="errors">
+               <% if(typeof errors != 'undefined') { %>
+               <% errors.forEach(function(error) { %>
+               <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <%= error.msg %>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+               </div>
+               <% }) %>
+               <% } %>
+               <% if(typeof message != 'undefined') { %>
+               <div class="alert alert-info alert-dismissible fade show" role="alert">
+                  <%= message %>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+               </div>
+               <div class="card">
+                  <div class="card-body">
+                     <h5 class="card-title">IP Addresses</h5>
+                     <ul class="list-group list-group-flush">
+                        <% addresses.forEach(function(ipAddress) { %>
+                        <li class="list-group-item">
+                           <%= ipAddress %>
+                        </li>
+                        <% }) %>
+                     </ul>
+                  </div>
+               </div>
+               <% } %>
+            </div>
+         </div>
       </div>
-    
-    </div>  
-  </body>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+   </body>
 </html>

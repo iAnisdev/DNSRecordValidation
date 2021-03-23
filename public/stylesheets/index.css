@@ -94,10 +94,13 @@ input[type="text"] {
   flex-basis: 500px;
 }
 
-h1{
+h2{
     color: #fff;
 }
-
+.errors{
+  margin-top: 2vh;
+  width: 50%;
+}
 @media all and (max-width:800px) {
   body {
     font-size: 0.9rem;

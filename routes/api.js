@@ -1,5 +1,8 @@
 var express = require('express');
+var dns = require('dns');
+const { check, validationResult } = require('express-validator')
 var router = express.Router();
+var {validateDNS}  = require('./../middlewares/mixins')
 
 /* Test API . */
 router.get('/', function(req, res, next) {
@@ -11,7 +14,39 @@ router.get('/', function(req, res, next) {
 });
 
 /* Validate Domain API. */
-router.post('/validate', function(req, res, next) {
+router.post('/validate', [
+  check('hostname', 'DNS hostname is required').exists().not().isEmpty(),
+  check('type', 'DNS type is not valid').exists().not().isEmpty()
+], function (req, res, next) {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      status: -1,
+      errors: errors.array()
+    })
+  }
+  let hostname = req.body.hostname
+  let type = req.body.type
+  if (validateDNS(hostname)) {
+    dns.resolve(hostname , type , (err, addresses) => {
+      if (err) {
+        return res.json({
+          status: -1,
+          errors: [{msg: 'Invalid DNS record', code : err.code}]
+        })
+      }
+      return res.json({
+        status: 0,
+        message: 'Valid DNS Record',
+        addresses
+      })
+    })
+  } else {
+    return res.json({
+      status: -1,
+      errors: [{msg: 'Invalid DNS record', code : 'INVALID'}]
+    })
+  }
    
 });
 
