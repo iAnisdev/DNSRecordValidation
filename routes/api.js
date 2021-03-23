@@ -4,8 +4,16 @@ const { check, validationResult } = require('express-validator')
 var router = express.Router();
 var {validateDNS}  = require('./../middlewares/mixins')
 
+//API documentation setup
+
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./../docs/swagger.json');
+
+router.use('/docs', swaggerUi.serve);
+router.get('/docs', swaggerUi.setup(swaggerDocument));
 /* Test API . */
-router.get('/', function(req, res, next) {
+router.get('/validate', function(req, res, next) {
   res.json({
       title: 'DNS Record Validator',
       status: 0,

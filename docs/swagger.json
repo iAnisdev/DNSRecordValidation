@@ -1,0 +1,77 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Simple DNS Validator Express API",
+        "version": "1.0.0",
+        "title": "DNS Record Validator"
+    },
+    "host": "localhost:3000/",
+    "basePath": "v1/api/",
+    "tags": [
+        {
+            "name": "Validate",
+            "description": "Endpoint to validate DNS Record",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/validate": {
+            "get": {
+                "tags": [
+                    "Validate"
+                ],
+                "summary": "Test API",
+                "description": "Test if the API is available and working.",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "description": "Working perfectly "
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Validate"
+                ],
+                "summary": "Validate API",
+                "description": "Validate DNS record and its type",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "DNS object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dns"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dns": {
+            "type": "object",
+            "properties": {
+                "hostname": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
