@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="description" content="DNS Record Validator">
+    <meta name="keywords" content="HTML, CSS, JavaScript , bootstrap , node, express, dns">
+    <meta name="author" content="Anis">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="cover">
+        <h1>Enter A DNS Record to Validate</h1>
+        <form  class="flex-form" method="POST" action="/validate" >
+          <label for="from">
+            <i class="ion-location"></i>
+          </label>
+          <input type="text" name="record" placeholder="www.example.com">
+          <input type="submit" value="Search">
+        </form>
+      </div>
+    
+    </div>  
+  </body>
+</html>
